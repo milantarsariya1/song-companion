@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import SearchBar, { LyricsRecord } from "@/components/SearchBar";
 import LyricsDisplay from "@/components/LyricsDisplay";
 import AIChatBox, { Message } from "@/components/AIChatBox";
-import SettingsModal from "@/components/SettingsModal";
 
 export default function Home() {
   const [selectedTrack, setSelectedTrack] = useState<LyricsRecord | null>(null);
@@ -12,7 +11,6 @@ export default function Home() {
   const [isTranslating, setIsTranslating] = useState(false);
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
   const [isChatLoading, setIsChatLoading] = useState(false);
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [translationError, setTranslationError] = useState<string | null>(null);
   const [chatError, setChatError] = useState<string | null>(null);
 
@@ -24,13 +22,6 @@ export default function Home() {
     setChatError(null);
   };
 
-  const getApiKey = () => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("lyrind_groq_key") || "";
-    }
-    return "";
-  };
-
   const handleTranslate = async (targetLanguage: string) => {
     if (!selectedTrack) return;
     setIsTranslating(true);
@@ -39,12 +30,10 @@ export default function Home() {
     const plainLyrics = selectedTrack.plainLyrics || selectedTrack.syncedLyrics?.replace(/\[\d{2}:\d{2}\.\d{2}\]/g, "") || "";
 
     try {
-      const apiKey = getApiKey();
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-groq-key": apiKey,
         },
         body: JSON.stringify({
           lyrics: plainLyrics,
@@ -94,12 +83,10 @@ export default function Home() {
     const plainLyrics = selectedTrack.plainLyrics || selectedTrack.syncedLyrics?.replace(/\[\d{2}:\d{2}\.\d{2}\]/g, "") || "";
 
     try {
-      const apiKey = getApiKey();
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-groq-key": apiKey,
         },
         body: JSON.stringify({
           lyrics: plainLyrics,
@@ -125,7 +112,7 @@ export default function Home() {
       setChatMessages((prev) => [...prev, assistantMsg]);
     } catch (err: any) {
       console.error(err);
-      setChatError(err?.message || "Something went wrong. Please check your connection or API key.");
+      setChatError(err?.message || "Something went wrong. Please check your connection.");
     } finally {
       setIsChatLoading(false);
     }
@@ -142,16 +129,8 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
               </svg>
             </div>
-            <span className="logo-text text-gradient">Lyrind</span>
+            <span className="logo-text text-gradient">Lyriqa</span>
           </div>
-
-          <button className="settings-btn" onClick={() => setIsSettingsOpen(true)} aria-label="Open settings">
-            <svg className="settings-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <span>Config</span>
-          </button>
         </div>
       </header>
 
@@ -165,7 +144,7 @@ export default function Home() {
                 Explore The Soul of <span className="text-gradient">Music</span>
               </h1>
               <p className="hero-subtitle">
-                Search lyrics instantly, translate them into multiple languages, and chat with Lyrind AI to unlock hidden metaphors and details about the author.
+                Search lyrics instantly, translate them into multiple languages, and chat with Lyriqa AI to unlock hidden metaphors and details about the author.
               </p>
             </div>
 
@@ -243,8 +222,24 @@ export default function Home() {
         )}
       </main>
 
-      {/* Global Config Modal */}
-      <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
+      {/* Premium Footer */}
+      <footer className="footer glass">
+        <div className="footer-container">
+          <div className="footer-brand">
+            <span className="footer-logo text-gradient" onClick={() => setSelectedTrack(null)}>Lyriqa</span>
+            <p className="footer-desc">Premium AI lyrics finding, on-the-fly translation, and context-aware chat companion.</p>
+          </div>
+          <div className="footer-meta">
+            <p className="made-by">
+              Made with <span className="heart">❤️</span> by <span className="milan text-gradient">Milan Tarsariya</span>
+            </p>
+            <div className="footer-links">
+              <a href="mailto:milantarsariya1@gmail.com" className="footer-link">✉️ Contact</a>
+              <a href="https://github.com/milantarsariya1" target="_blank" rel="noopener noreferrer" className="footer-link">🔗 GitHub</a>
+            </div>
+          </div>
+        </div>
+      </footer>
 
       <style jsx>{`
         .layout-root {
@@ -309,38 +304,11 @@ export default function Home() {
           letter-spacing: -0.03em;
         }
 
-        .settings-btn {
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid var(--border-glass);
-          color: var(--text-secondary);
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 0.5rem 1rem;
-          border-radius: 100px;
-          font-size: 0.85rem;
-        }
-
-        .settings-btn:hover {
-          background: rgba(255, 255, 255, 0.07);
-          color: var(--text-primary);
-          border-color: var(--text-muted);
-        }
-
-        .settings-icon {
-          width: 16px;
-          height: 16px;
-          transition: transform 0.4s ease;
-        }
-
-        .settings-btn:hover .settings-icon {
-          transform: rotate(60deg);
-        }
-
         .main-layout {
           flex: 1;
           display: flex;
           flex-direction: column;
+          margin-bottom: 2rem;
         }
 
         /* Landing View Styles */
@@ -492,6 +460,88 @@ export default function Home() {
           background: rgba(255, 255, 255, 0.05);
         }
 
+        /* Premium Footer Styles */
+        .footer {
+          border-top: 1px solid var(--border-glass);
+          background: rgba(11, 15, 25, 0.75);
+          padding: 2.5rem 0;
+          border-radius: 0;
+          margin-top: auto;
+        }
+
+        .footer-container {
+          max-width: 1400px;
+          margin: 0 auto;
+          padding: 0 2rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 1.5rem;
+        }
+
+        .footer-brand {
+          display: flex;
+          flex-direction: column;
+          gap: 0.35rem;
+        }
+
+        .footer-logo {
+          font-family: var(--font-family-display);
+          font-size: 1.35rem;
+          font-weight: 800;
+          letter-spacing: -0.02em;
+          cursor: pointer;
+        }
+
+        .footer-desc {
+          font-size: 0.8rem;
+          color: var(--text-muted);
+          max-width: 320px;
+        }
+
+        .footer-meta {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 0.5rem;
+        }
+
+        .made-by {
+          font-size: 0.9rem;
+          color: var(--text-secondary);
+        }
+
+        .heart {
+          color: #ef4444;
+          display: inline-block;
+          animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.15); }
+        }
+
+        .milan {
+          font-weight: 600;
+        }
+
+        .footer-links {
+          display: flex;
+          gap: 1.25rem;
+        }
+
+        .footer-link {
+          font-size: 0.85rem;
+          color: var(--text-muted);
+          transition: color var(--transition-fast);
+        }
+
+        .footer-link:hover {
+          color: var(--text-primary);
+        }
+
         .animated-fade {
           animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
@@ -502,6 +552,9 @@ export default function Home() {
         }
 
         @media (max-width: 992px) {
+          .workspace-view {
+            gap: 1.5rem;
+          }
           .workspace-grid {
             grid-template-columns: 1fr;
           }
@@ -512,6 +565,17 @@ export default function Home() {
 
           .hero-title {
             font-size: 2.5rem;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .footer-container {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+          }
+          .footer-meta {
+            align-items: center;
           }
         }
       `}</style>

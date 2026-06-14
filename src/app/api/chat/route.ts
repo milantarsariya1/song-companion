@@ -10,9 +10,8 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { lyrics, trackName, artistName, albumName, messages, mode, targetLanguage } = body;
 
-    // Retrieve API key from request headers or environment variables
-    const clientKey = request.headers.get("x-groq-key");
-    const apiKey = clientKey || process.env.GROQ_API_KEY;
+    // Retrieve API key from environment variables
+    const apiKey = process.env.GROQ_API_KEY;
 
     // Check if key is available. If not, fallback to Simulation Mode.
     if (!apiKey) {
@@ -22,7 +21,7 @@ export async function POST(request: NextRequest) {
     let groqMessages: { role: string; content: string }[] = [];
 
     if (mode === "translate") {
-      const systemInstruction = `You are Lyrind, a premium AI lyrics translation expert. You specialize in preserving the cultural context, poetic metrics, and emotional resonance of song lyrics across multiple languages.`;
+      const systemInstruction = `You are Lyriqa, a premium AI lyrics translation expert. You specialize in preserving the cultural context, poetic metrics, and emotional resonance of song lyrics across multiple languages.`;
       const userPrompt = `Please translate the following song into ${targetLanguage || "Spanish"}.
 Song Details:
 - Title: "${trackName}"
@@ -43,7 +42,7 @@ Requirements:
         { role: "user", content: userPrompt }
       ];
     } else {
-      const systemPrompt = `You are Lyrind, a premium AI song analyst and music expert.
+      const systemPrompt = `You are Lyriqa, a premium AI song analyst and music expert.
 You have access to the following song details:
 - Song Title: "${trackName}"
 - Artist/Author: "${artistName}"
@@ -150,12 +149,12 @@ function handleSimulationMode(data: any): Promise<NextResponse> {
         `   - **"Flying" or "Light":** Represents reclamation of agency and personal breakthrough.\n` +
         `3. **Tone and Vibe:** Melancholic yet uplifting, building toward an emotional crescendo that echoes the lyrical transformation.`;
     } else {
-      simulationContent = `${simulationHeader}### Lyrind AI Companion response for **"${trackName}"**\n\n` +
+      simulationContent = `${simulationHeader}### Lyriqa AI Companion response for **"${trackName}"**\n\n` +
         `You asked: *"${lastUserMessage}"*\n\n` +
         `Here is a simulated response concerning **"${trackName}"** by **${artistName}**:\n` +
         `- **Artist:** ${artistName}\n` +
         `- **Track:** ${trackName}\n\n` +
-        `Lyrind's AI model analyzes the lyrics to find poetic structures, rhyming patterns, and hidden context. \n\n` +
+        `Lyriqa's AI model analyzes the lyrics to find poetic structures, rhyming patterns, and hidden context. \n\n` +
         `*To customize your questions and receive complete real-time answers, please insert a **Groq API key** via the Settings modal in the top-right corner.*`;
     }
   }

@@ -59,7 +59,7 @@ export default function AIChatBox({
           </svg>
         </div>
         <div className="header-meta">
-          <h3>Lyrind AI Assistant</h3>
+          <h3>Lyriqa AI Assistant</h3>
           <p>Ask anything about this track</p>
         </div>
       </div>
@@ -69,7 +69,7 @@ export default function AIChatBox({
         {messages.length === 0 ? (
           <div className="empty-state">
             <p className="welcome-text">
-              Welcome to the Lyrind analysis engine. I have parsed the lyrics of **"{track.trackName}"** by **{track.artistName}**.
+              Welcome to the Lyriqa analysis engine. I have parsed the lyrics of **"{track.trackName}"** by **{track.artistName}**.
             </p>
             <p className="sub-welcome">Click on a quick question below or type your own to explore details about the song and its author.</p>
             
@@ -178,7 +178,7 @@ export default function AIChatBox({
         <div className="input-row">
           <input
             type="text"
-            placeholder="Ask Lyrind AI about the meaning, author, theme..."
+            placeholder="Ask Lyriqa AI about the meaning, author, theme..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={isLoading}
