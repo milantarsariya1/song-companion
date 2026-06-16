@@ -123,7 +123,7 @@ export default function Home() {
       {/* Top Navbar */}
       <header className="navbar glass">
         <div className="nav-container">
-          <div className="logo-section" onClick={() => setSelectedTrack(null)}>
+          <div className="logo-section" onClick={() => { if (typeof window !== "undefined") window.location.href = "/"; }}>
             <div className="logo-ring">
               <svg className="logo-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
@@ -174,8 +174,11 @@ export default function Home() {
           <div className="workspace-view animated-fade">
             {/* Streamlined Search Header */}
             <div className="workspace-header">
-              <button className="back-home-btn glass" onClick={() => setSelectedTrack(null)}>
-                ← Back
+              <button className="back-home-btn" onClick={() => setSelectedTrack(null)}>
+                <svg className="back-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M15 19l-7-7 7-7" />
+                </svg>
+                <span>Back</span>
               </button>
               <div className="workspace-search">
                 <SearchBar onSelectTrack={handleSelectTrack} />
@@ -209,7 +212,7 @@ export default function Home() {
                   onClearTranslation={handleClearTranslation}
                 />
               </div>
-              <div className="grid-col">
+              <div className="grid-col chat-col">
                 <AIChatBox
                   track={selectedTrack}
                   messages={chatMessages}
@@ -226,7 +229,7 @@ export default function Home() {
       <footer className="footer glass">
         <div className="footer-container">
           <div className="footer-brand">
-            <span className="footer-logo text-gradient" onClick={() => setSelectedTrack(null)}>Lyriqa</span>
+            <span className="footer-logo text-gradient" onClick={() => { if (typeof window !== "undefined") window.location.href = "/"; }}>Lyriqa</span>
             <p className="footer-desc">Premium AI lyrics finding, on-the-fly translation, and context-aware chat companion.</p>
           </div>
           <div className="footer-meta">
@@ -382,6 +385,7 @@ export default function Home() {
           flex-direction: column;
           gap: 2rem;
           width: 100%;
+          flex: 1;
         }
 
         .workspace-header {
@@ -391,19 +395,37 @@ export default function Home() {
         }
 
         .back-home-btn {
-          background: var(--bg-secondary);
-          border: 1px solid var(--border-glass);
-          color: var(--text-secondary);
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          height: 48px;
+          padding: 0 1.5rem;
           border-radius: 100px;
-          padding: 0.75rem 1.5rem;
-          font-weight: 500;
-          font-size: 0.9rem;
+          border: 1px solid var(--border-glass);
+          background: rgba(18, 24, 38, 0.4);
+          color: var(--text-secondary);
+          font-weight: 600;
+          font-size: 0.95rem;
           cursor: pointer;
+          transition: all var(--transition-normal);
+          box-shadow: var(--shadow-sm);
         }
 
         .back-home-btn:hover {
           color: var(--text-primary);
-          background: rgba(255, 255, 255, 0.05);
+          border-color: var(--accent-primary);
+          background: rgba(99, 102, 241, 0.08);
+          box-shadow: var(--shadow-glow);
+          transform: translateX(-4px);
+        }
+
+        .back-icon {
+          width: 18px;
+          height: 18px;
+          transition: transform var(--transition-normal);
+        }
+
+        .back-home-btn:hover .back-icon {
           transform: translateX(-2px);
         }
 
@@ -415,12 +437,18 @@ export default function Home() {
           display: grid;
           grid-template-columns: 1.2fr 1fr;
           gap: 2rem;
-          align-items: start;
+          align-items: stretch;
+          flex: 1;
         }
 
         .grid-col {
           min-width: 0;
           height: 100%;
+        }
+
+        .chat-col {
+          align-self: start;
+          height: auto;
         }
 
         .error-alert-banner {

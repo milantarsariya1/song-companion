@@ -198,8 +198,7 @@ export default function AIChatBox({
           border-radius: var(--border-radius-lg);
           border: 1px solid var(--border-glass);
           background: rgba(18, 24, 38, 0.45);
-          height: 100%;
-          min-height: 550px;
+          height: auto;
           overflow: hidden;
         }
 
@@ -247,7 +246,7 @@ export default function AIChatBox({
           display: flex;
           flex-direction: column;
           gap: 1.5rem;
-          max-height: 380px;
+          max-height: 450px;
         }
 
         .empty-state {

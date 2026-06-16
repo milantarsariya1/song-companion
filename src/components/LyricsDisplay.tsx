@@ -413,7 +413,7 @@ export default function LyricsDisplay({
         .lyrics-scroller {
           flex: 1;
           overflow-y: auto;
-          max-height: 400px;
+          min-height: 0;
           padding-right: 0.5rem;
           font-size: 1.05rem;
           line-height: 1.8;
