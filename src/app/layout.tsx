@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   title: "Lyriqa - Premium AI Lyrics Finder & Companion",
   description: "Search lyrics, translate instantly, and explore song meanings with an advanced AI chatbot powered by Groq.",
   keywords: ["lyrics", "lyrics search", "lyrics translator", "AI lyrics assistant", "Lyriqa", "song meanings"],
-  authors: [{ name: "Lyriqa Team" }],
+  authors: [{ name: "Milan Tarsariya" }],
 };
 
 export default function RootLayout({
