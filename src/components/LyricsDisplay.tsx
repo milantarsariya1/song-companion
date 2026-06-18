@@ -81,9 +81,11 @@ export default function LyricsDisplay({
   const syncedLines = track.syncedLyrics ? parseLRC(track.syncedLyrics) : [];
 
   const languages = [
+    "English",
     "Spanish",
     "French",
     "German",
+    "Gujarati",
     "Italian",
     "Japanese",
     "Korean",

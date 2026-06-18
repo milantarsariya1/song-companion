@@ -117,15 +117,35 @@ function handleSimulationMode(data: any): Promise<NextResponse> {
   const simulationHeader = `> **[Simulation Mode Active]** _Enter your Groq API Key in the settings panel (gear icon) to activate live Llama-3.1 AI analysis._\n\n`;
 
   if (mode === "translate") {
+    const isEnglish = targetLanguage?.toLowerCase() === "english";
+    const isGujarati = targetLanguage?.toLowerCase() === "gujarati";
+
+    let original1 = `"I hear the wind call my name..."`;
+    let translated1 = `"Escucho al viento llamar mi nombre..."`;
+    let originalCh = `"Take me higher, let me fly..."`;
+    let translatedCh = `"Llévame más alto, déjame volar..."`;
+
+    if (isEnglish) {
+      original1 = `"Escucho al viento llamar mi nombre..."`;
+      translated1 = `"I hear the wind calling my name..."`;
+      originalCh = `"Llévame más alto, déjame volar..."`;
+      translatedCh = `"Take me higher, let me fly..."`;
+    } else if (isGujarati) {
+      original1 = `"I hear the wind call my name..."`;
+      translated1 = `"હું પવનને મારું નામ પુકારતા સાંભળું છું..."`;
+      originalCh = `"Take me higher, let me fly..."`;
+      translatedCh = `"મને વધુ ઊંચે લઈ જાઓ, મને ઉડવા દો..."`;
+    }
+
     simulationContent = `${simulationHeader}Here is a simulated translation of **"${trackName}"** by **${artistName}** into **${targetLanguage || "Spanish"}**:\n\n` +
       `### Lyrical Translation Excerpt (${targetLanguage})\n` +
       `*This is a preview of how Lyrind translates lyrics while preserving the artistic integrity of the original text.*\n\n` +
       `1. **[Verse 1]**\n` +
-      `   * (Original) "I hear the wind call my name..." \n` +
-      `   * (Translated) "Escucho al viento llamar mi nombre..."\n\n` +
+      `   * (Original) ${original1} \n` +
+      `   * (Translated) ${translated1}\n\n` +
       `2. **[Chorus]**\n` +
-      `   * (Original) "Take me higher, let me fly..." \n` +
-      `   * (Translated) "Llévame más alto, déjame volar..."\n\n` +
+      `   * (Original) ${originalCh} \n` +
+      `   * (Translated) ${translatedCh}\n\n` +
       `---\n` +
       `### Analysis & Meaning\n` +
       `This song captures themes of freedom and self-discovery. Translating it into **${targetLanguage}** emphasizes the universal yearning for release that **${artistName}** wove into the track.`;
