@@ -129,7 +129,7 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
               </svg>
             </div>
-            <span className="logo-text text-gradient">Lyriqa</span>
+            <span className="logo-text text-gradient">Song Companion</span>
           </div>
         </div>
       </header>
@@ -144,7 +144,7 @@ export default function Home() {
                 Explore The Soul of <span className="text-gradient">Music</span>
               </h1>
               <p className="hero-subtitle">
-                Search lyrics instantly, translate them into multiple languages, and chat with Lyriqa AI to unlock hidden metaphors and details about the author.
+                Search lyrics instantly, translate them into multiple languages, and chat with Song Companion AI to unlock hidden metaphors and details about the author.
               </p>
             </div>
 
@@ -160,7 +160,7 @@ export default function Home() {
               <div className="feature-card glass glass-interactive">
                 <div className="feature-icon">🌐</div>
                 <h4>AI Translation</h4>
-                <p>Translate verses into any target language while maintaining the song's emotional tone.</p>
+                <p>Translate verses into any target language while maintaining the song&apos;s emotional tone.</p>
               </div>
               <div className="feature-card glass glass-interactive">
                 <div className="feature-icon">💬</div>
@@ -229,7 +229,7 @@ export default function Home() {
       <footer className="footer glass">
         <div className="footer-container">
           <div className="footer-brand">
-            <span className="footer-logo text-gradient" onClick={() => { if (typeof window !== "undefined") window.location.href = "/"; }}>Lyriqa</span>
+            <span className="footer-logo text-gradient" onClick={() => { if (typeof window !== "undefined") window.location.href = "/"; }}>Song Companion</span>
             <p className="footer-desc">Premium AI lyrics finding, on-the-fly translation, and context-aware chat companion.</p>
           </div>
           <div className="footer-meta">

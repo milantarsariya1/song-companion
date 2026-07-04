@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
     // It's recommended to send a descriptive User-Agent header
     const response = await fetch(`https://lrclib.net/api/search?q=${encodeURIComponent(query)}`, {
       headers: {
-        "User-Agent": "LyrindAICompanion/1.0.0 (https://github.com/milantarsariya1/Lyrind)"
+        "User-Agent": "SongCompanionAI/1.0.0 (https://github.com/milantarsariya1/song-companion)"
       }
     });
 

@@ -14,14 +14,14 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
 
   useEffect(() => {
     if (isOpen) {
-      const savedKey = localStorage.getItem("lyrind_groq_key") || "";
+      const savedKey = localStorage.getItem("song_companion_groq_key") || localStorage.getItem("lyrind_groq_key") || "";
       setApiKey(savedKey);
       setStatus("idle");
     }
   }, [isOpen]);
 
   const handleSave = () => {
-    localStorage.setItem("lyrind_groq_key", apiKey.trim());
+    localStorage.setItem("song_companion_groq_key", apiKey.trim());
     setStatus("saved");
     setTimeout(() => {
       onClose();
@@ -30,6 +30,7 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   };
 
   const handleClear = () => {
+    localStorage.removeItem("song_companion_groq_key");
     localStorage.removeItem("lyrind_groq_key");
     setApiKey("");
     setStatus("cleared");
@@ -45,14 +46,14 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
     <div className="modal-overlay">
       <div className="modal-content glass">
         <div className="modal-header">
-          <h3>Lyrind Configurations</h3>
+          <h3>Song Companion Configurations</h3>
           <button className="close-btn" onClick={onClose}>
             &times;
           </button>
         </div>
         <div className="modal-body">
           <p className="description">
-            To query Lyrind AI in real-time, configure your personal **Groq API Key**.
+            To query Song Companion AI in real-time, configure your personal **Groq API Key**.
             The key is stored securely in your local browser storage and is only transmitted to the server route via request headers.
           </p>
 
@@ -75,7 +76,7 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
               </button>
             </div>
             <span className="help-text">
-              Don't have a key? Get one for free at{" "}
+              Don&apos;t have a key? Get one for free at{" "}
               <a
                 href="https://console.groq.com"
                 target="_blank"
