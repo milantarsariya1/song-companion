@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   description: "Search lyrics, translate instantly, and explore song meanings with an advanced AI chatbot powered by Groq.",
   keywords: ["lyrics", "lyrics search", "lyrics translator", "AI lyrics assistant", "Song Companion", "song meanings"],
   authors: [{ name: "Milan Tarsariya" }],
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
@@ -28,7 +31,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${outfit.variable} ${inter.variable}`}>
-      <body style={{ margin: 0, padding: 0 }}>{children}</body>
+      <head>
+        <meta name="theme-color" content="#0b0f19" />
+        <meta name="color-scheme" content="dark" />
+      </head>
+      <body style={{ margin: 0, padding: 0, backgroundColor: "#0b0f19" }}>{children}</body>
     </html>
   );
 }
