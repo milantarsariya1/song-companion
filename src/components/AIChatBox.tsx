@@ -190,7 +190,6 @@ export default function AIChatBox({
           </button>
         </div>
       </form>
-
+    </div>
   );
 }
-

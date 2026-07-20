@@ -224,7 +224,6 @@ export default function LyricsDisplay({
           </button>
         </div>
       )}
-
+    </div>
   );
 }
-

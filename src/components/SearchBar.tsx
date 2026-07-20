@@ -142,7 +142,6 @@ export default function SearchBar({ onSelectTrack }: SearchBarProps) {
           <div className="dropdown-status">No results found. Try another search.</div>
         </div>
       )}
-
+    </div>
   );
 }
-
